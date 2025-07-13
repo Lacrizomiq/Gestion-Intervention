@@ -1,0 +1,47 @@
+@model List<GestionInterventions.Models.Entities.Intervention>
+@{
+  ViewData["Title"] = "Interventions";
+}
+
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="display-6 mb-0">📋 Interventions</h1>
+    </div>
+  </div>
+
+  <!-- Section formulaire de recherche -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <form asp-action="Index" method="get" class="row g-3">
+        <div class="col-md-3">
+          <input type="text" class="form-control" name="searchText" placeholder="Rechercher dans titre ou description" value="@ViewBag.SearchText">
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" name="statut">
+            <option value="">Tous les statuts</option>
+            @foreach(var statut in Enum.GetValues(typeof(GestionInterventions.Models.Entities.StatutIntervention)))
+            {
+              <option value="@statut" selected="@(statut.ToString() == ViewBag.SelectedStatut?.ToString())">@statut</option>
+            }
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" name="priorite">
+            <option value="">Toutes les priorités</option>
+            @foreach(var priorite in Enum.GetValues(typeof(GestionInterventions.Models.Entities.PrioriteIntervention)))
+            {
+              <option value="@priorite" selected="@(priorite.ToString() == ViewBag.SelectedPriorite?.ToString())">@priorite</option>
+            }
+          </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary me-2">Rechercher</button>
+          <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Réinitialiser</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Section liste des interventions -->
+</div>

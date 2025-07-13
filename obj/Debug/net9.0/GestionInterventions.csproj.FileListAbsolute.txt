@@ -226,3 +226,4 @@
 /Users/ludovicrayne/Documents/Développement/Projet-perso/C# .Net/GestionInterventions/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/ludovicrayne/Documents/Développement/Projet-perso/C# .Net/GestionInterventions/obj/Debug/net9.0/GestionInterventions.csproj.AssemblyReference.cache
 /Users/ludovicrayne/Documents/Développement/Projet-perso/C# .Net/GestionInterventions/obj/Debug/net9.0/GestionI.0B6D03E9.Up2Date
+/Users/ludovicrayne/Documents/Développement/Projet-perso/C# .Net/GestionInterventions/obj/Debug/net9.0/GestionInterventions.sourcelink.json
