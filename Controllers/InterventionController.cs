@@ -48,8 +48,8 @@ public class InterventionController : Controller
 
     // Passer les valeurs des filtres à la vue
     ViewBag.SearchText = searchText;
-    ViewBag.Statut = statut;
-    ViewBag.Priorite = priorite;
+    ViewBag.SelectedStatut = statut;
+    ViewBag.SelectedPriorite = priorite;
 
     return View(interventions);
   }

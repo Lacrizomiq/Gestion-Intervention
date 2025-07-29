@@ -1,0 +1,61 @@
+@model GestionInterventions.Models.Entities.Intervention
+@{
+  ViewData["Title"] = "Détails de l'intervention";
+}
+
+<div class="container-fluid">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a asp-asp-controller="Home" asp-action="Index">🏠 Accueil</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a asp-action="Index" asp-controller="Intervention">📋 Interventions</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a asp-action="Details" asp-route-id="@Model.Id">📋 @Model.Titre</a>
+          </li>
+        </ol>
+      </nav>
+
+
+    <!-- Carte avec détails-->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2 class="card-title mb-0">
+        📋 @Model.Titre
+      </h2>
+      <small>Intervention #@Model.Id</small>
+    </div>
+    <div class="card-body">
+      <!-- Informations de base-->
+      <div class="row">
+        <div class="col-md-8">
+          <h5>Description</h5>
+          <p class="text-muted">@Model.Description</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Informations</h5>
+          <p><strong>Priorité :</strong>
+            <span class="badge bg-warning">@Model.Priorite</span>
+          </p>
+          <p><strong>Statut :</strong>
+            <span class="badge bg-info">@Model.Statut</span>
+          </p>
+          <p><strong>Date de création :</strong>
+            @Model.DateCreation.ToString("dd/MM/yyyy")
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton retour-->
+  <div class="mt-4">
+  <a asp-controller="Intervention" asp-action="Index" 
+     class="btn btn-secondary">
+    ← Retour à la liste des interventions
+  </a>
+</div>
+</div>

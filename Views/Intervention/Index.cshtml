@@ -44,4 +44,83 @@
   </div>
 
   <!-- Section liste des interventions -->
+  <div class="row">
+    <div class="col-12">
+      <!-- En tete avec compteurs-->
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>Résultats (@Model.Count interventions)</h5>
+      </div>
+
+      <!-- Tableau responsive-->
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Priorité</th>
+              <th>Statut</th>
+              <th>Date de création</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (Model.Any())
+            {
+              @foreach (var intervention in Model)
+              {
+                <tr>
+                  <!-- Titre -->
+                  <td>
+                    <strong>@intervention.Titre</strong>
+                  </td>
+                  <!-- Description tronquée-->
+                  <td>
+                    @(intervention.Description?.Length > 60 ? intervention.Description.Substring(0, 60) + "..." : intervention.Description)
+                  </td>
+                  <!-- Priorité avec badge coloré-->
+                  <td>
+                  <span class="badge @(intervention.Priorite == GestionInterventions.Models.Entities.PrioriteIntervention.Urgent ? "bg-danger" : 
+                                        intervention.Priorite == GestionInterventions.Models.Entities.PrioriteIntervention.Haute ? "bg-warning" :
+                                        intervention.Priorite == GestionInterventions.Models.Entities.PrioriteIntervention.Normale ? "bg-primary" : "bg-secondary")">
+                    @intervention.Priorite
+                  </span>
+                </td>
+
+                <!-- Statut avec badge coloré -->
+                <td>
+                  <span class="badge @(intervention.Statut == GestionInterventions.Models.Entities.StatutIntervention.Terminee ? "bg-success" :
+                                        intervention.Statut == GestionInterventions.Models.Entities.StatutIntervention.EnCours ? "bg-warning" :
+                                        intervention.Statut == GestionInterventions.Models.Entities.StatutIntervention.Nouveau ? "bg-info" : "bg-secondary")">
+                    @intervention.Statut
+                  </span>
+                </td>
+
+                <!-- Date formatée -->
+                <td>
+                  @intervention.DateCreation.ToString("dd/MM/yyyy")
+                </td>
+
+                <!-- Actions-->
+                <td>
+                  <a asp-action="Details" asp-route-id="@intervention.Id" class="btn btn-sm btn-outline-primary">
+                    Voir détails
+                  </a>
+                </td>
+              </tr>
+              }
+            } 
+            else
+            {
+              <tr>
+                <td colspan="6" class="text-center text-muted py-4">
+                  <em>Aucune intervention trouvée</em>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>

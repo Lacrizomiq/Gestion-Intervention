@@ -85,7 +85,7 @@
                                                 </span>
                                             </div>
                                             <p class="card-text text-muted small">
-                                                @(intervention.Description.Length > 80 ? intervention.Description.Substring(0, 80) + "..." : intervention.Description)
+                                                @(intervention.Description?.Length > 80 ? intervention.Description.Substring(0, 80) + "..." : intervention.Description)
                                             </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <small class="text-muted">
@@ -102,7 +102,7 @@
                         </div>
                         
                         <div class="text-center mt-3">
-                            <a href="#" class="btn btn-outline-primary">
+                            <a href="@Url.Action("Index", "Intervention")" class="btn btn-outline-primary">
                                 Voir toutes les interventions →
                             </a>
                         </div>
@@ -119,7 +119,9 @@
                     <div class="card-body text-center py-5">
                         <h4 class="text-muted">🎉 Aucune intervention urgente</h4>
                         <p class="text-muted">Toutes les interventions prioritaires sont sous contrôle !</p>
-                        <a href="#" class="btn btn-primary">Voir toutes les interventions</a>
+                        <a href="@Url.Action("Index", "Intervention")" class="btn btn-outline-primary">
+                            Voir toutes les interventions →
+                        </a>
                     </div>
                 </div>
             </div>
