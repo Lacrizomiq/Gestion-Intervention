@@ -5,6 +5,7 @@ using GestionInterventions.Data;
 using GestionInterventions.Models.ViewModels;
 using GestionInterventions.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GestionInterventions.Controllers;
 
@@ -20,7 +21,7 @@ public class InterventionController : Controller
   }
 
   // Action pour afficher les interventions
-  public async Task<IActionResult> Index(string? searchText, StatutIntervention? statut, PrioriteIntervention? priorite)
+  public async Task<IActionResult> Index(string? searchText, StatutIntervention? statut, PrioriteIntervention? priorite, string? dateCreation)
   {
     // Créer une requête pour les interventions
     var query = _context.Interventions.AsQueryable();
@@ -43,6 +44,20 @@ public class InterventionController : Controller
       query = query.Where(i => i.Priorite == priorite.Value);
     }
 
+    // Condition pour la date de création
+    if (!string.IsNullOrEmpty(dateCreation))
+    {
+      if (dateCreation == "asc")
+      {
+        query = query.OrderBy(i => i.DateCreation);
+      }
+      else if (dateCreation == "desc")
+      {
+        query = query.OrderByDescending(i => i.DateCreation);
+      }
+    }
+    
+
     // Récupérer les interventions avec les filtres
     var interventions = await query.ToListAsync();
 
@@ -50,6 +65,7 @@ public class InterventionController : Controller
     ViewBag.SearchText = searchText;
     ViewBag.SelectedStatut = statut;
     ViewBag.SelectedPriorite = priorite;
+    ViewBag.SelectedDateCreation = dateCreation;
 
     return View(interventions);
   }
@@ -70,10 +86,40 @@ public class InterventionController : Controller
 
     return View(intervention);
     }
-    catch (System.Exception)
+    catch (Exception)
     {
       // Log l'erreur
       return RedirectToAction("Index");
     }
   }  
+
+  // Action pour afficher le formulaire de création d'une intervention
+  public IActionResult Create()
+  {
+    return View();
+  }
+
+  // Action pour créer une intervention
+  [HttpPost]
+  public async Task<IActionResult> Create(Intervention intervention)
+  {
+    if (ModelState.IsValid)
+    {
+      try {
+        // Si le modèle est valide, on ajoute l'intervention à la base de données
+        intervention.DateCreation = DateTime.Now;
+        _context.Interventions.Add(intervention);
+        await _context.SaveChangesAsync();
+        return RedirectToAction("Details", new { id = intervention.Id });
+      }
+      catch (Exception)
+      {
+        // Log l'erreur
+        ModelState.AddModelError(string.Empty, "Une erreur est survenue lors de la création de l'intervention");
+        return View(intervention);
+      }
+    }
+    // Si le modèle n'est pas valide, on retourne la vue avec les erreurs
+    return View(intervention);
+  }
 }

@@ -8,6 +8,11 @@
     <div class="col-12">
       <h1 class="display-6 mb-0">📋 Interventions</h1>
     </div>
+
+    <!-- Bouton pour ajouter une intervention -->
+    <div class="col-12 d-flex justify-content-end">
+      <a asp-action="Create" class="btn btn-primary">Ajouter une intervention</a>
+    </div>
   </div>
 
   <!-- Section formulaire de recherche -->
@@ -33,6 +38,13 @@
             {
               <option value="@priorite" selected="@(priorite.ToString() == ViewBag.SelectedPriorite?.ToString())">@priorite</option>
             }
+          </select>
+        </div>
+        <div class="col-md-3">
+          <select class="form-select" name="dateCreation">
+            <option value="">Toutes les dates</option>
+            <option value="asc" selected="@(ViewBag.SelectedDateCreation == "asc")">Du plus ancien au plus récent</option>
+            <option value="desc" selected="@(ViewBag.SelectedDateCreation == "desc")">Du plus récent au plus ancien</option>
           </select>
         </div>
         <div class="col-md-3 d-flex align-items-end">

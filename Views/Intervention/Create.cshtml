@@ -1,0 +1,51 @@
+@model GestionInterventions.Models.Entities.Intervention
+@{
+  ViewData["Title"] = "Création d'une intervention";
+}
+
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="display-6 mb-0">📋 Création d'une intervention</h1>
+
+      <div class="row">
+        <div class="col-12">
+          <form asp-action="Create" method="post" class="row g-3">
+            <div class="col-md-6">
+              <label for="title" class="form-label">Titre</label>
+              <input type="text" class="form-control" id="title" name="Titre" required placeholder="Titre de l'intervention">
+            </div>
+            <div class="col-md-6">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="Description" rows="3" required placeholder="Texte de la description"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label for="status" class="form-label">Statut</label>
+              <select class="form-select" id="status" name="Statut" required>
+                <option value="">Sélectionner un statut</option>
+                @foreach(var statut in Enum.GetValues(typeof(GestionInterventions.Models.Entities.StatutIntervention)))
+                {
+                  <option value="@statut">@statut</option>
+                }
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="priority" class="form-label">Priorité</label>
+              <select class="form-select" id="priority" name="Priorite" required>
+                <option value="">Sélectionner une priorité</option>
+                @foreach(var priorite in Enum.GetValues(typeof(GestionInterventions.Models.Entities.PrioriteIntervention)))
+                {
+                  <option value="@priorite">@priorite</option>
+                }
+              </select>
+            </div>
+            <div class="col-12 d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">Créer l'intervention</button>
+              <a asp-action="Index" class="btn btn-outline-secondary">Annuler</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
